@@ -1,13 +1,13 @@
 from django.db import models
 
 
-class Ingredient(models.Model):
+class Product(models.Model):
 
     name = models.CharField(
         verbose_name='name',
         max_length=150
     )
-    uses = models.PositiveIntegerField(null=True)
+    cook = models.PositiveIntegerField(default=0)
 
     class Meta:
         ordering = ['name']
@@ -21,9 +21,9 @@ class Recipe(models.Model):
     name = models.CharField(
         max_length=150
     )
-    ingredients = models.ManyToManyField(
-        to=Ingredient,
-        through='RecipesIngredient'
+    products = models.ManyToManyField(
+        to=Product,
+        through='RecipesProduct'
     )
 
     class Meta:
@@ -33,12 +33,12 @@ class Recipe(models.Model):
         return self.name
 
 
-class RecipesIngredient(models.Model):
+class RecipesProduct(models.Model):
 
     recipe = models.ForeignKey(
         Recipe, on_delete=models.CASCADE
     )
-    ingredient = models.ForeignKey(
-        Ingredient, on_delete=models.CASCADE
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, related_name='product'
     )
-    amount = models.PositiveSmallIntegerField()
+    weight = models.PositiveSmallIntegerField()
