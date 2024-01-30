@@ -11,9 +11,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         if not Product.objects.exists():
-            # print(settings.BASE_DIR.joinpath('DATA').joinpath('ingredients.csv'))
             with open(
-                settings.BASE_DIR.parent.joinpath('DATA').joinpath('ingredients.csv'), 'r'
+                settings.BASE_DIR.joinpath('DATA').joinpath('ingredients.csv'), 'r'
             ) as f:
                 reader = csv.DictReader(f, fieldnames=['name', 'unit'])
                 for row in reader:
@@ -21,7 +20,7 @@ class Command(BaseCommand):
 
         if not Recipe.objects.exists():
             with open(
-                settings.BASE_DIR.parent.joinpath('DATA').joinpath('recipes.txt'), 'r'
+                settings.BASE_DIR.joinpath('DATA').joinpath('recipes.txt'), 'r'
             ) as f:
                 for line in f:
                     name = line.rstrip('\n')
