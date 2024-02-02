@@ -42,3 +42,6 @@ class RecipesProduct(models.Model):
         Product, on_delete=models.CASCADE, related_name='product'
     )
     weight = models.PositiveSmallIntegerField()
+
+    class Meta:
+        unique_together = ['recipe', 'product']

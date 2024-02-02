@@ -24,7 +24,9 @@ def cook_recipe(request, recipe_id):
 
 def show_recipes_without_product(request, product_id):
     recipes = Recipe.objects.exclude(
-        products__pk=product_id,  recipesproduct__weight__gte=10
+        pk__in=Recipe.objects.filter(
+            products__pk=product_id, recipesproduct__weight__gte=10
+        ).values_list('pk')
     )
     product_name = Product.objects.get(pk=product_id).name
 
